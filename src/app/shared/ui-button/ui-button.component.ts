@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./ui-button.component.css']
 })
 export class UiButtonComponent {
-  @Input() variant: string = 'btn-primary';
-  @Input() size: string = '';
-  @Input() disabled: boolean = false;
+  @Input() variant = 'btn-primary';
+  @Input() size = '';
+  @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 }

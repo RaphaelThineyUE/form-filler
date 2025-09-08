@@ -11,5 +11,5 @@ import { NgIf } from '@angular/common';
 export class UiCardComponent {
   @Input() title?: string;
   @Input() subtitle?: string;
-  @Input() classes: string = '';
+  @Input() classes = '';
 }
