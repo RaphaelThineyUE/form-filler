@@ -56,3 +56,8 @@ Thumbs.db
 .env
 .env.local
 .env.production
+
+# Testing
+test-results/
+playwright-report/
+/tmp/playwright-logs/

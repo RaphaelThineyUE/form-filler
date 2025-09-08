@@ -6,7 +6,7 @@ import { NinjaConsoleService } from './shared/ninja-console/ninja-console.servic
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App implements OnInit {
   protected readonly title = signal('form-filler');
