@@ -16,7 +16,7 @@ import { filter } from 'rxjs/operators';
           <div class="flex items-center justify-between">
             <!-- Logo -->
             <a routerLink="/" class="text-xl font-bold hover:text-brand-100 transition-colors" (click)="logNavigation('Home', '/')">
-              form-filler
+              AI Form Filler
             </a>
 
             <!-- Desktop Navigation -->
@@ -49,19 +49,19 @@ import { filter } from 'rxjs/operators';
               </button>
             </div>
           </div>          <!-- Mobile Navigation -->
-          <nav 
+          <nav
             class="md:hidden mt-4 pb-2"
             [class.hidden]="!isMobileMenuOpen()"
             [attr.aria-hidden]="!isMobileMenuOpen()">
             <div class="space-y-2">
-              <a 
-                routerLink="/" 
+              <a
+                routerLink="/"
                 (click)="closeMobileMenu(); logNavigation('Home', '/')"
                 class="block py-2 hover:text-brand-100 transition-colors font-medium">
                 Home
               </a>
-              <a 
-                routerLink="/about" 
+              <a
+                routerLink="/about"
                 (click)="closeMobileMenu(); logNavigation('About', '/about')"
                 class="block py-2 hover:text-brand-100 transition-colors font-medium">
                 About
