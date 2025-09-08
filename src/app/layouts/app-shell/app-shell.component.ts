@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgClass, NgIf],
+  imports: [RouterOutlet, RouterLink, NgIf],
   template: `
   <div [class.dark]="isDarkMode()">
     <div class="min-h-dvh bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
