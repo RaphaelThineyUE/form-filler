@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-ui-button',
   imports: [],
   templateUrl: './ui-button.html',
-  styleUrl: './ui-button.css'
+  styleUrl: './ui-button.css',
 })
-export class UiButton {
-
-}
+export class UiButton {}
