@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UiButtonComponent } from '../../shared/ui-button/ui-button.component';
 import { UiCardComponent } from '../../shared/ui-card/ui-card.component';
+import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [UiButtonComponent, UiCardComponent],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private componentId = 'HomeComponent';

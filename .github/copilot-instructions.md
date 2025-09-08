@@ -1,159 +1,133 @@
-# AI Coding Agent Instructions for form-filler
+# form-filler
 
-## Project Overview
+form-filler is a modern Angular web application built with Tailwind CSS, featuring dark mode, responsive design, and end-to-end testing with Playwright. The application serves as a starter template showcasing best practices for Angular development.
 
-This is a modern Angular 20+ application with Tailwind CSS for styling, following a feature-based architecture with shared UI components. The app provides form-filling functionality with a responsive design supporting light/dark themes.
+Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
 
-## Architecture Patterns
+## Working Effectively
 
-### Feature-Based Structure
+- Bootstrap and install dependencies:
+  - `npm install` -- takes ~24 seconds on fresh install, ~1-2 seconds on subsequent runs. NEVER CANCEL. Set timeout to 60+ seconds.
 
-```
-src/app/
-├── features/          # Feature modules (home, about)
-├── layouts/           # Layout components (app-shell)
-├── shared/            # Reusable UI components (ui-button, ui-card)
-├── app.config.ts      # Application configuration
-├── app.routes.ts      # Route definitions
-└── app.ts            # Root component
-```
+- Build the application:
+  - `npm run build -- --configuration development` -- takes ~4-5 seconds. Use for local development.
+  - `npm run build` -- FAILS due to Google Fonts network blocking. Do not use in restricted environments.
 
-### Component Organization
+- Run the development server:
+  - `npm start` -- starts dev server on http://localhost:4200, takes ~4-5 seconds to build. NEVER CANCEL. Set timeout to 60+ seconds.
+  - Application includes hot reload and watch mode enabled.
 
-- **Standalone Components**: All components use Angular's standalone API
-- **Feature Components**: Located in `features/` directory, focused on specific functionality
-- **Layout Components**: Handle application shell and navigation structure
-- **Shared UI Components**: Reusable design system components in `shared/` directory
+- Run unit tests:
+  - `npm test -- --watch=false --browsers=ChromeHeadless` -- takes ~4-5 seconds. NEVER CANCEL. Set timeout to 30+ seconds.
+  - NOTE: One test currently fails (expects 'Hello, form-filler' but actual content is 'Welcome to form-filler').
 
-## Key Conventions
+- Run end-to-end tests:
+  - First install Playwright browsers: `npx playwright install` -- takes several minutes and may fail due to network restrictions. NEVER CANCEL. Set timeout to 900+ seconds.
+  - `npm run e2e` -- runs Playwright tests across multiple browsers. NEVER CANCEL. Set timeout to 600+ seconds.
+  - Alternative commands: `npm run e2e:headed`, `npm run e2e:debug`, `npm run e2e:ui`
 
-### 1. Routing Structure
+- Code quality and formatting:
+  - `npm run format` -- applies Prettier formatting, takes ~1 second.
+  - `npm run format:check` -- checks formatting without applying changes.
+  - ESLint is NOT configured. Do not attempt to run linting commands.
 
-- Uses nested routing with `AppShellComponent` as the layout wrapper
-- Route titles follow pattern: `form-filler - {PageName}`
-- Default route redirects to home page
+## Validation
 
-### 2. Styling System
+- Always manually validate changes by starting the dev server with `npm start` and browsing to http://localhost:4200
+- Test key functionality: navigation between Home and About pages, dark mode toggle, responsive design
+- ALWAYS run through at least one complete end-to-end scenario after making changes:
+  1. Navigate to home page and verify "Welcome to form-filler" heading displays
+  2. Toggle dark mode and verify theme changes from light to dark
+  3. Navigate to About page and verify content loads correctly
+  4. Test responsive design by resizing browser window
+- Always run `npm run format` before committing changes
+- Unit tests have known failures - focus on E2E testing for validation
 
-- **Tailwind CSS v3.4.17** with custom design tokens
-- **Component Classes**: Global component styles defined in `src/styles.css` using `@layer components`
-- **Dark Mode**: Implemented via `class` strategy with signal-based state management
-- **Custom Brand Colors**: Extended Tailwind theme with brand color palette
-- **CSS Variables**: Design tokens defined in `:root` for consistent theming
+## Common Issues
 
-### 3. Component Patterns
+- **Production build fails**: Google Fonts network blocking causes production builds to fail. Use development builds instead.
+- **Playwright browser installation fails**: Network restrictions may prevent browser downloads. Document this limitation.
+- **Unit test failures**: App test expects wrong content - this is a known issue, not a regression.
+- **NgClass warning**: AppShellComponent has unused NgClass import - this is cosmetic and doesn't affect functionality.
 
-```typescript
-// Standard component structure
-@Component({
-  selector: 'app-[component-name]',
-  standalone: true,
-  imports: [/* dependencies */],
-  templateUrl: './[component-name].component.html',
-  styleUrls: ['./[component-name].component.css']
-})
-```
+## Repository Structure
 
-### 4. UI Component Library
+The codebase follows Angular standalone component architecture:
 
-- **Button Variants**: `btn-primary`, `btn-secondary` with consistent styling
-- **Input Styling**: Custom `.input` class for form elements
-- **Card Component**: `.card` class with hover effects and dark mode support
-- **Responsive Design**: Mobile-first approach with `md:` breakpoints
+### Key Directories
+- `src/app/features/` - Feature modules (home, about pages)
+- `src/app/layouts/` - Layout components (app-shell with navigation)
+- `src/app/shared/` - Reusable UI components (buttons, cards)
+- `e2e/` - Playwright end-to-end tests
+- `public/` - Static assets
 
-### 5. State Management
+### Important Files
+- `package.json` - Dependencies and npm scripts
+- `angular.json` - Angular CLI configuration
+- `playwright.config.ts` - E2E testing configuration
+- `tailwind.config.js` - Tailwind CSS configuration
+- `tsconfig.json` - TypeScript configuration
 
-- **Signals API**: Used for reactive state (dark mode, mobile menu)
-- **Local Storage**: Theme preferences persisted across sessions
-- **Signal Methods**: `toggleDarkMode()`, `toggleMobileMenu()` for state updates
+## Technology Stack
+
+- **Angular**: Latest version with standalone components and signals
+- **Tailwind CSS**: Utility-first CSS framework with custom design tokens
+- **TypeScript**: Strict mode enabled with comprehensive type checking
+- **Playwright**: Cross-browser E2E testing framework
+- **Prettier**: Code formatting (ESLint not configured)
+- **Node.js**: Runtime environment (v20.19.4 confirmed working)
 
 ## Development Workflow
 
-### Build Commands
+1. Install dependencies: `npm install`
+2. Start development server: `npm start`
+3. Make changes and test in browser at http://localhost:4200
+4. Format code: `npm run format`
+5. Test changes: Run E2E tests if Playwright browsers are installed
+6. Commit changes
 
-```bash
-npm start          # Development server on http://localhost:4200
-npm run build      # Production build to dist/
-npm run test       # Unit tests with Karma
-npm run e2e        # E2E tests with Playwright
-npm run lint:fix   # ESLint with auto-fix
-npm run format     # Prettier formatting
+## Build Times and Timeouts
+
+- **npm install**: ~24 seconds (fresh install), ~1-2 seconds (subsequent) - use 60+ second timeout
+- **Development build**: ~4-5 seconds (use 30+ second timeout)
+- **Unit tests**: ~4-5 seconds (use 30+ second timeout)
+- **Dev server startup**: ~4-5 seconds (use 60+ second timeout)
+- **Playwright browser install**: Several minutes (use 900+ second timeout)
+- **E2E tests**: Variable depending on browser count (use 600+ second timeout)
+
+## Application Features
+
+- **Responsive Design**: Mobile-first approach with Tailwind breakpoints
+- **Dark Mode**: Toggle between light and dark themes with localStorage persistence
+- **Navigation**: Router-based navigation between Home and About pages
+- **Component Library**: Reusable UI components (buttons, cards) with Tailwind styling
+- **TypeScript**: Full type safety with Angular's strict mode
+- **Testing**: Comprehensive E2E test coverage with Playwright
+
+## Frequently Run Commands
+
+### Repository root structure
+```
+.
+├── README.md
+├── angular.json
+├── package.json
+├── playwright.config.ts
+├── tsconfig.json
+├── tailwind.config.js
+├── src/
+├── e2e/
+└── public/
 ```
 
-### Testing Setup
-
-- **Unit Tests**: Karma + Jasmine in `src/app/app.spec.ts`
-- **E2E Tests**: Playwright with cross-browser testing
-- **Test Configuration**: `playwright.config.ts` with mobile emulation
-- **Web Server**: Auto-starts dev server for e2e tests
-
-### Code Quality
-
-- **Prettier**: Single quotes, 100 char width, Angular HTML parser
-- **ESLint**: Integrated with Angular CLI, auto-fix enabled
-- **Lint-staged**: Pre-commit hooks for code formatting
-- **TypeScript**: Strict mode enabled
-
-### Debugging & Instrumentation
-
-- **Console Ninja**: Use for comprehensive runtime monitoring and debugging
-- **Runtime Logs**: Capture console messages, errors, and network requests during development
-- **Error Tracking**: Monitor both browser console errors and server-side issues
-- **Network Monitoring**: Track API calls and resource loading for performance analysis
-- **Debug Workflow**: Start Console Ninja before running `npm start` to capture all application activity
-
-## File Naming Conventions
-
-- Components: `[name].component.ts/html/css`
-- Features: `features/[feature-name]/[feature-name].component.*`
-- Shared UI: `shared/ui-[component]/[component].component.*`
-- Layouts: `layouts/[layout-name]/[layout-name].component.*`
-
-## Key Files to Reference
-
-- `src/styles.css`: Global styles and component classes
-- `tailwind.config.js`: Theme extensions and plugin configuration
-- `src/app/app.routes.ts`: Route structure and lazy loading setup
-- `src/app/layouts/app-shell/app-shell.component.ts`: Main layout with theme logic
-- `package.json`: Available scripts and dependencies
-
-## Common Patterns
-
-### Adding New Features
-
-1. Create feature directory in `src/app/features/`
-2. Add route to `app.routes.ts` with proper title
-3. Import feature component in route configuration
-4. Use shared UI components for consistent design
-
-### Creating UI Components
-
-1. Place in `src/app/shared/ui-[name]/`
-2. Use standalone component pattern
-3. Define styles in global `styles.css` using `@layer components`
-4. Support dark mode with `dark:` prefixes
-5. Include proper TypeScript inputs for customization
-
-### Theme Implementation
-
-- Check `isDarkMode()` signal for conditional logic
-- Use `dark:` prefixes in Tailwind classes
-- Update `document.documentElement.classList` for global theme application
-- Persist theme preference in localStorage
-
-## Integration Points
-
-- **Tailwind CSS**: PostCSS processing via `postcss.config.js`
-- **Angular CLI**: Build system with application builder
-- **Playwright**: E2E testing with auto-starting dev server
-- **Prettier**: Code formatting with Angular-specific rules
-
-## Performance Considerations
-
-- **Bundle Budgets**: 500KB warning, 1MB error for initial bundle
-- **Component Styles**: 4KB warning, 8KB error per component
-- **Tree Shaking**: Standalone components enable better optimization
-- **Lazy Loading**: Route-based code splitting
-
-When working with this codebase, always reference these patterns and maintain consistency with the established architecture and styling system. Also use Context7</content>
-<parameter name="filePath">d:\form-filler\.github\copilot-instructions.md
+### package.json scripts (most important)
+```json
+{
+  "start": "ng serve",
+  "build": "ng build",
+  "test": "ng test",
+  "format": "prettier --write 'src/**/*.{ts,html,css,scss,md}'",
+  "format:check": "prettier --check 'src/**/*.{ts,html,css,scss,md}'",
+  "e2e": "playwright test"
+}
+```

@@ -71,23 +71,23 @@ import { filter } from 'rxjs/operators';
         </div>
       </header>
 
-      <!-- Main Content -->
-      <main class="mx-auto max-w-7xl px-4 py-8 min-h-[calc(100dvh-200px)]">
-        <router-outlet />
-      </main>
+        <!-- Main Content -->
+        <main class="mx-auto max-w-7xl px-4 py-8 min-h-[calc(100dvh-200px)]">
+          <router-outlet />
+        </main>
 
-      <!-- Footer -->
-      <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-        <div class="mx-auto max-w-7xl px-4 py-8">
-          <div class="text-center text-sm text-slate-600 dark:text-slate-400">
-            <p>Built with ❤️ using Angular + Tailwind CSS</p>
-            <p class="mt-1">© 2025 form-filler. All rights reserved.</p>
+        <!-- Footer -->
+        <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+          <div class="mx-auto max-w-7xl px-4 py-8">
+            <div class="text-center text-sm text-slate-600 dark:text-slate-400">
+              <p>Built with ❤️ using Angular + Tailwind CSS</p>
+              <p class="mt-1">© 2025 form-filler. All rights reserved.</p>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
-  </div>
-  `
+  `,
 })
 export class AppShellComponent implements OnInit, OnDestroy {
   isDarkMode = signal<boolean>(false);
@@ -112,6 +112,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
     // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 
     this.isDarkMode.set(savedTheme === 'dark' || (!savedTheme && prefersDark));
     this.updateDocumentTheme();

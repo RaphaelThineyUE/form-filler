@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UiCardComponent } from '../../shared/ui-card/ui-card.component';
+import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.service';
 
 @Component({
   selector: 'app-about',
   standalone: true,
   imports: [UiCardComponent],
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.css'],
 })
 export class AboutComponent implements OnInit, OnDestroy, AfterViewInit {
   private componentId = 'AboutComponent';

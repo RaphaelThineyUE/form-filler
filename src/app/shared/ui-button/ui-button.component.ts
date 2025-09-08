@@ -4,7 +4,7 @@ import { Component, Input, OnInit, OnDestroy, HostListener } from '@angular/core
   selector: 'app-ui-button',
   standalone: true,
   templateUrl: './ui-button.component.html',
-  styleUrls: ['./ui-button.component.css']
+  styleUrls: ['./ui-button.component.css'],
 })
 export class UiButtonComponent implements OnInit, OnDestroy {
   @Input() variant = 'btn-primary';

@@ -8,21 +8,21 @@ export const routes: Routes = [
     path: '',
     component: AppShellComponent,
     children: [
-      { 
-        path: '', 
+      {
+        path: '',
         component: HomeComponent,
-        title: 'form-filler - Home'
+        title: 'form-filler - Home',
       },
-      { 
-        path: 'about', 
+      {
+        path: 'about',
         component: AboutComponent,
-        title: 'form-filler - About'
-      }
-    ]
+        title: 'form-filler - About',
+      },
+    ],
   },
-  { 
-    path: '**', 
+  {
+    path: '**',
     redirectTo: '',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
