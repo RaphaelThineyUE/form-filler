@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { UiButtonComponent } from '../../shared/ui-button/ui-button.component';
 import { UiCardComponent } from '../../shared/ui-card/ui-card.component';
+import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.service';
 
 @Component({
   selector: 'app-home',

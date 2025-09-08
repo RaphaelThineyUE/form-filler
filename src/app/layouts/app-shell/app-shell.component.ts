@@ -1,11 +1,14 @@
-import { Component, signal, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { Component, signal, OnInit, inject } from '@angular/core';
+import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
+import { filter } from 'rxjs';
+import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.service';
+import { NinjaConsoleComponent } from '../../shared/ninja-console/ninja-console.component';
 
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgClass, NgIf],
+  imports: [RouterOutlet, RouterLink, NgClass, NgIf, NinjaConsoleComponent],
   template: `
     <div [class.dark]="isDarkMode()">
       <div class="min-h-dvh bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -125,6 +128,11 @@ export class AppShellComponent implements OnInit {
 
   closeMobileMenu() {
     this.isMobileMenuOpen.set(false);
+    this.ninjaConsole.instrumentUserAction('AppShell', 'closeMobileMenu');
+  }
+
+  toggleConsole() {
+    this.ninjaConsole.toggle();
   }
 
   private updateDocumentTheme() {
