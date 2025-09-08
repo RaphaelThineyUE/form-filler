@@ -8,8 +8,8 @@
       A modern Angular application built with Tailwind CSS, featuring dark mode, responsive design, and best practices.
     </p>
     <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-      <app-ui-button variant="btn-primary">Get Started</app-ui-button>
-      <app-ui-button variant="btn-secondary">Learn More</app-ui-button>
+      <app-ui-button variant="btn-primary" (click)="onGetStartedClick()">Get Started</app-ui-button>
+      <app-ui-button variant="btn-secondary" (click)="onLearnMoreClick()">Learn More</app-ui-button>
     </div>
   </section>
 
