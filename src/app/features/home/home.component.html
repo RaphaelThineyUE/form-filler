@@ -1,0 +1,71 @@
+<div class="space-y-8">
+  <!-- Hero Section -->
+  <section class="text-center py-12">
+    <h1 class="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4 text-balance">
+      Welcome to form-filler
+    </h1>
+    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-balance">
+      A modern Angular application built with Tailwind CSS, featuring dark mode, responsive design, and best practices.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+      <app-ui-button variant="btn-primary">Get Started</app-ui-button>
+      <app-ui-button variant="btn-secondary">Learn More</app-ui-button>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section>
+    <h2 class="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-6 text-center">
+      What's Included
+    </h2>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <app-ui-card 
+        title="Tailwind CSS" 
+        subtitle="Utility-first CSS framework">
+        <p class="text-slate-600 dark:text-slate-300">
+          Pre-configured with custom design tokens, components, and responsive utilities for rapid development.
+        </p>
+      </app-ui-card>
+
+      <app-ui-card 
+        title="Dark Mode" 
+        subtitle="System preference aware">
+        <p class="text-slate-600 dark:text-slate-300">
+          Built-in dark mode support with smooth transitions and localStorage persistence.
+        </p>
+      </app-ui-card>
+
+      <app-ui-card 
+        title="TypeScript" 
+        subtitle="Type-safe development">
+        <p class="text-slate-600 dark:text-slate-300">
+          Full TypeScript support with strict mode enabled and comprehensive type checking.
+        </p>
+      </app-ui-card>
+
+      <app-ui-card 
+        title="Responsive Design" 
+        subtitle="Mobile-first approach">
+        <p class="text-slate-600 dark:text-slate-300">
+          Responsive navigation, flexible layouts, and optimized mobile experience.
+        </p>
+      </app-ui-card>
+
+      <app-ui-card 
+        title="Modern Tooling" 
+        subtitle="ESLint, Prettier, Husky">
+        <p class="text-slate-600 dark:text-slate-300">
+          Code quality tools configured for consistent formatting and best practices.
+        </p>
+      </app-ui-card>
+
+      <app-ui-card 
+        title="Testing Ready" 
+        subtitle="Playwright E2E included">
+        <p class="text-slate-600 dark:text-slate-300">
+          End-to-end testing setup with Playwright for reliable application testing.
+        </p>
+      </app-ui-card>
+    </div>
+  </section>
+</div>
