@@ -1,11 +1,14 @@
-import { Component, signal, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { Component, signal, OnInit, inject } from '@angular/core';
+import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
+import { filter } from 'rxjs';
+import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.service';
+import { NinjaConsoleComponent } from '../../shared/ninja-console/ninja-console.component';
 
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgClass, NgIf],
+  imports: [RouterOutlet, RouterLink, NgClass, NgIf, NinjaConsoleComponent],
   template: `
   <div [class.dark]="isDarkMode()">
     <div class="min-h-dvh bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -22,6 +25,12 @@ import { NgClass, NgIf } from '@angular/common';
             <nav class="hidden md:flex items-center gap-6">
               <a routerLink="/" class="hover:text-brand-100 transition-colors font-medium">Home</a>
               <a routerLink="/about" class="hover:text-brand-100 transition-colors font-medium">About</a>
+              <button 
+                class="btn-secondary !py-2 !px-3 !text-xs"
+                (click)="toggleConsole()"
+                title="Toggle Ninja Console (Ctrl+Shift+D)">
+                🥷
+              </button>
               <button 
                 class="btn-secondary !py-2 !px-3 !text-xs"
                 (click)="toggleDarkMode()"
@@ -87,34 +96,66 @@ import { NgClass, NgIf } from '@angular/common';
         </div>
       </footer>
     </div>
+    
+    <!-- Ninja Console -->
+    <app-ninja-console />
   </div>
   `
 })
 export class AppShellComponent implements OnInit {
   isDarkMode = signal<boolean>(false);
   isMobileMenuOpen = signal<boolean>(false);
+  
+  private router = inject(Router);
+  private ninjaConsole = inject(NinjaConsoleService);
+  private currentRoute = '';
 
   ngOnInit() {
+    const timerName = this.ninjaConsole.startPerformanceTimer('AppShell_Init');
+    
     // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     this.isDarkMode.set(savedTheme === 'dark' || (!savedTheme && prefersDark));
     this.updateDocumentTheme();
+    
+    // Subscribe to navigation events
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const previousRoute = this.currentRoute;
+      this.currentRoute = event.url;
+      this.ninjaConsole.instrumentNavigation(previousRoute || 'initial', event.url);
+    });
+    
+    this.ninjaConsole.instrumentComponentLifecycle('AppShell', 'OnInit');
+    this.ninjaConsole.endPerformanceTimer(timerName);
   }
 
   toggleDarkMode() {
     this.isDarkMode.update(current => !current);
     this.updateDocumentTheme();
     localStorage.setItem('theme', this.isDarkMode() ? 'dark' : 'light');
+    this.ninjaConsole.instrumentUserAction('AppShell', 'toggleDarkMode', { 
+      darkMode: this.isDarkMode() 
+    });
   }
 
   toggleMobileMenu() {
     this.isMobileMenuOpen.update(current => !current);
+    this.ninjaConsole.instrumentUserAction('AppShell', 'toggleMobileMenu', { 
+      isOpen: this.isMobileMenuOpen() 
+    });
   }
 
   closeMobileMenu() {
     this.isMobileMenuOpen.set(false);
+    this.ninjaConsole.instrumentUserAction('AppShell', 'closeMobileMenu');
+  }
+
+  toggleConsole() {
+    this.ninjaConsole.toggle();
   }
 
   private updateDocumentTheme() {
