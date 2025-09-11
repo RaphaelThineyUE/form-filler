@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UiButtonComponent } from '../../shared/ui-button/ui-button.component';
 import { UiCardComponent } from '../../shared/ui-card/ui-card.component';
-import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.se
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private componentId = 'HomeComponent';
-  private startTime: number = 0;
+  private startTime = 0;
 
   ngOnInit() {
     this.startTime = performance.now();
@@ -96,5 +96,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       sessionStorage.setItem('form-filler-session', sessionId);
     }
     return sessionId;
+  }
+
+  onGetStartedClick(): void {
+    console.log('Get Started button clicked');
+  }
+
+  onLearnMoreClick(): void {
+    console.log('Learn More button clicked');
   }
 }

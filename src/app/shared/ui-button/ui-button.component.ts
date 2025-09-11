@@ -2,22 +2,22 @@ import { Component, Input, OnInit, OnDestroy, HostListener } from '@angular/core
 
 @Component({
   selector: 'app-ui-button',
-  standalone: true,
   templateUrl: './ui-button.component.html',
-  styleUrls: ['./ui-button.component.css'],
+  styleUrls: ['./ui-button.component.css']
 })
 export class UiButtonComponent implements OnInit, OnDestroy {
   @Input() variant = 'btn-primary';
   @Input() size = '';
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  @Input() title = 'Button'; // Add title property with default value
 
   private componentId = 'UiButtonComponent';
   private buttonId: string;
   private startTime = 0;
 
   constructor() {
-    this.buttonId = `button_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    this.buttonId = `button_${Date.now()}${Math.random().toString(36).substr(2, 9)}`;
   }
 
   ngOnInit() {
