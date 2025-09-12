@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, AfterViewInit  } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UiButtonComponent } from '../../shared/ui-button/ui-button.component';
 import { UiCardComponent } from '../../shared/ui-card/ui-card.component';
 

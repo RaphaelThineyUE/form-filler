@@ -106,7 +106,7 @@ import { filter } from 'rxjs/operators';
         <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
           <div class="mx-auto max-w-7xl px-4 py-8">
             <div class="text-center text-sm text-slate-600 dark:text-slate-400">
-              <p>Built with ❤️ using Angular + Tailwind CSS</p>
+              <p>Built with ❤️ By Raphael Dambournet</p>
               <p class="mt-1">© 2025 form-filler. All rights reserved.</p>
             </div>
           </div>
