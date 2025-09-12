@@ -28,7 +28,7 @@ export class UiButtonComponent implements OnInit, OnDestroy {
       size: this.size,
       disabled: this.disabled,
       type: this.type,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -39,7 +39,7 @@ export class UiButtonComponent implements OnInit, OnDestroy {
     console.log(`🗑️ [${this.componentId}] Button component destroyed`, {
       buttonId: this.buttonId,
       totalLifetime: `${totalLifetime.toFixed(2)}ms`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -56,14 +56,14 @@ export class UiButtonComponent implements OnInit, OnDestroy {
           ctrlKey: (event as MouseEvent).ctrlKey,
           shiftKey: (event as MouseEvent).shiftKey,
           altKey: (event as MouseEvent).altKey,
-          button: (event as MouseEvent).button
-        }
+          button: (event as MouseEvent).button,
+        },
       });
     } else {
       console.log(`🚫 [${this.componentId}] Disabled button clicked (ignored)`, {
         buttonId: this.buttonId,
         variant: this.variant,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     }
   }
@@ -73,7 +73,7 @@ export class UiButtonComponent implements OnInit, OnDestroy {
     console.log(`🖱️ [${this.componentId}] Button hover started`, {
       buttonId: this.buttonId,
       variant: this.variant,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -82,7 +82,7 @@ export class UiButtonComponent implements OnInit, OnDestroy {
     console.log(`🖱️ [${this.componentId}] Button hover ended`, {
       buttonId: this.buttonId,
       variant: this.variant,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 

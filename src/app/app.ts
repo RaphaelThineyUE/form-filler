@@ -23,7 +23,7 @@ declare global {
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: './app.html'
+  templateUrl: './app.html',
 })
 export class App implements OnInit, OnDestroy {
   protected readonly title = signal('form-filler');
@@ -39,13 +39,15 @@ export class App implements OnInit, OnDestroy {
       url: window.location.href,
       viewport: {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       },
-      memoryUsage: performance.memory ? {
-        used: performance.memory.usedJSHeapSize,
-        total: performance.memory.totalJSHeapSize,
-        limit: performance.memory.jsHeapSizeLimit
-      } : 'Memory API not available'
+      memoryUsage: performance.memory
+        ? {
+            used: performance.memory.usedJSHeapSize,
+            total: performance.memory.totalJSHeapSize,
+            limit: performance.memory.jsHeapSizeLimit,
+          }
+        : 'Memory API not available',
     });
 
     // Set up global error handling
@@ -64,7 +66,7 @@ export class App implements OnInit, OnDestroy {
 
     console.log(`🛑 [${this.componentId}] Application destroyed`, {
       totalLifetime: `${totalLifetime.toFixed(2)}ms`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -78,7 +80,7 @@ export class App implements OnInit, OnDestroy {
         colno: event.colno,
         error: event.error,
         timestamp: new Date().toISOString(),
-        sessionId: this.getSessionId()
+        sessionId: this.getSessionId(),
       });
     });
 
@@ -87,7 +89,7 @@ export class App implements OnInit, OnDestroy {
       console.error(`💥 [${this.componentId}] Unhandled promise rejection`, {
         reason: event.reason,
         timestamp: new Date().toISOString(),
-        sessionId: this.getSessionId()
+        sessionId: this.getSessionId(),
       });
     });
 
@@ -100,7 +102,7 @@ export class App implements OnInit, OnDestroy {
         hidden: document.hidden,
         visibilityState: document.visibilityState,
         timestamp: new Date().toISOString(),
-        sessionId: this.getSessionId()
+        sessionId: this.getSessionId(),
       });
     });
   }
@@ -109,26 +111,28 @@ export class App implements OnInit, OnDestroy {
     if ('onLine' in navigator) {
       console.log(`🌐 [${this.componentId}] Network status`, {
         online: navigator.onLine,
-        connection: navigator.connection ? {
-          effectiveType: navigator.connection.effectiveType,
-          downlink: navigator.connection.downlink,
-          rtt: navigator.connection.rtt
-        } : 'Connection API not available',
-        timestamp: new Date().toISOString()
+        connection: navigator.connection
+          ? {
+              effectiveType: navigator.connection.effectiveType,
+              downlink: navigator.connection.downlink,
+              rtt: navigator.connection.rtt,
+            }
+          : 'Connection API not available',
+        timestamp: new Date().toISOString(),
       });
 
       // Log network changes
       window.addEventListener('online', () => {
         console.log(`🌐 [${this.componentId}] Network came online`, {
           timestamp: new Date().toISOString(),
-          sessionId: this.getSessionId()
+          sessionId: this.getSessionId(),
         });
       });
 
       window.addEventListener('offline', () => {
         console.log(`🌐 [${this.componentId}] Network went offline`, {
           timestamp: new Date().toISOString(),
-          sessionId: this.getSessionId()
+          sessionId: this.getSessionId(),
         });
       });
     }

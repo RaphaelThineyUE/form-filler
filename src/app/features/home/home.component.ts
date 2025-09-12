@@ -11,36 +11,43 @@ import { UiCardComponent } from '../../shared/ui-card/ui-card.component';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+
   private componentId = 'HomeComponent';
-  private startTime = 0;
+  private startTime  = 0;
 
   ngOnInit() {
     this.startTime = performance.now();
-    console.log(`🏠 [${this.componentId}] Component initialized`, {
+    console.time('home_component_init');
+
+    console.log('info', this.componentId, 'Component initialized', {
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
       url: window.location.href,
-      referrer: document.referrer || 'Direct access'
+      referrer: document.referrer || 'Direct access',
     });
 
     // Log component performance
-    console.log(`⚡ [${this.componentId}] Initialization performance:`, {
+    console.log('debug', this.componentId, 'Initialization performance tracked', {
       component: this.componentId,
       initTime: this.startTime,
-      memoryUsage: (performance as any).memory ? {
-        used: (performance as any).memory.usedJSHeapSize,
-        total: (performance as any).memory.totalJSHeapSize,
-        limit: (performance as any).memory.jsHeapSizeLimit
-      } : 'Memory API not available'
+      memoryUsage: (performance as any).memory
+        ? {
+            used: (performance as any).memory.usedJSHeapSize,
+            total: (performance as any).memory.totalJSHeapSize,
+            limit: (performance as any).memory.jsHeapSizeLimit,
+          }
+        : 'Memory API not available',
     });
 
     // Log page load performance
     if (performance.timing) {
       const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-      console.log(`📊 [${this.componentId}] Page load performance:`, {
+      console.log('info', this.componentId, 'Page load performance', {
         loadTime: `${loadTime}ms`,
         domReady: performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart,
-        firstPaint: performance.getEntriesByType('paint').find(entry => entry.name === 'first-paint')?.startTime || 'N/A'
+        firstPaint:
+          performance.getEntriesByType('paint').find((entry) => entry.name === 'first-paint')
+            ?.startTime || 'N/A',
       });
     }
   }
@@ -49,19 +56,21 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     const viewInitTime = performance.now();
     const initDuration = viewInitTime - this.startTime;
 
-    console.log(`👁️ [${this.componentId}] View initialized`, {
+    console.timeEnd('home_component_init');
+
+    console.log('info', this.componentId, 'View initialized', {
       component: this.componentId,
       viewInitTime,
       initDuration: `${initDuration.toFixed(2)}ms`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     // Log if initialization took too long
     if (initDuration > 100) {
-      console.warn(`⚠️ [${this.componentId}] Slow initialization detected`, {
+      console.log('warn', this.componentId, 'Slow initialization detected', {
         duration: initDuration,
         threshold: 100,
-        component: this.componentId
+        component: this.componentId,
       });
     }
   }
@@ -70,22 +79,22 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     const destroyTime = performance.now();
     const totalLifetime = destroyTime - this.startTime;
 
-    console.log(`🗑️ [${this.componentId}] Component destroyed`, {
+    console.log('info', this.componentId, 'Component destroyed', {
       component: this.componentId,
       totalLifetime: `${totalLifetime.toFixed(2)}ms`,
       destroyTime,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
   // Public method for external interaction logging
-  logUserInteraction(action: string, details?: any) {
-    console.log(`👆 [${this.componentId}] User interaction: ${action}`, {
+  logUserInteraction(action: string, details?: unknown) {
+    console.log('info', this.componentId, `User interaction: ${action}`, {
       component: this.componentId,
       action,
       details,
       timestamp: new Date().toISOString(),
-      sessionId: this.getSessionId()
+      sessionId: this.getSessionId(),
     });
   }
 
@@ -99,10 +108,16 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onGetStartedClick(): void {
-    console.log('Get Started button clicked');
+    console.time('get_started_click');
+    console.log('info', this.componentId, 'Get Started button clicked');
+    this.logUserInteraction('Get Started Click', { buttonType: 'primary', action: 'get-started' });
+   console.timeEnd('get_started_click');
   }
 
   onLearnMoreClick(): void {
-    console.log('Learn More button clicked');
+    console.time('learn_more_click');
+    console.log('info', this.componentId, 'Learn More button clicked');
+    this.logUserInteraction('Learn More Click', { buttonType: 'secondary', action: 'learn-more' });
+    console.timeEnd('learn_more_click');
   }
 }

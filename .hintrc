@@ -3,12 +3,11 @@
     "development"
   ],
   "hints": {
-    "axe/name-role-value": [
+    "axe/language": [
       "default",
       {
-        "button-name": "off"
+        "html-has-lang": "off"
       }
-    ],
-    "typescript-config/consistent-casing": "off"
+    ]
   }
 }

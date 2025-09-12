@@ -1,75 +1,101 @@
-import { Component, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal, OnInit, OnDestroy, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router';
-import { NgClass, NgIf } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgIf],
+  imports: [RouterOutlet, RouterLink],
   template: `
-  <div [class.dark]="isDarkMode()">
-    <div class="min-h-dvh bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-      <!-- Header -->
-      <header class="bg-brand-500 text-white shadow-lg">
-        <div class="mx-auto max-w-7xl px-4 py-4">
-          <div class="flex items-center justify-between">
-            <!-- Logo -->
-            <a routerLink="/" class="text-xl font-bold hover:text-brand-100 transition-colors" (click)="logNavigation('Home', '/')">
-              AI Form Filler
-            </a>
-
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-6">
-              <a routerLink="/" class="hover:text-brand-100 transition-colors font-medium" (click)="logNavigation('Home', '/')">Home</a>
-              <a routerLink="/about" class="hover:text-brand-100 transition-colors font-medium" (click)="logNavigation('About', '/about')">About</a>
-              <button
-                class="btn-secondary !py-2 !px-3 !text-xs"
-                (click)="toggleDarkMode()"
-                [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
-                <span *ngIf="isDarkMode(); else lightIcon">🌙</span>
-                <ng-template #lightIcon>☀️</ng-template>
-              </button>
-            </nav>
-
-            <!-- Mobile menu button -->
-            <div class="md:hidden flex items-center gap-2">
-              <button
-                class="btn-secondary !py-2 !px-3 !text-xs"
-                (click)="toggleDarkMode()"
-                [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
-                <span *ngIf="isDarkMode(); else lightIconMobile">🌙</span>
-                <ng-template #lightIconMobile>☀️</ng-template>
-              </button>
-              <button
-                class="btn-secondary !py-2 !px-3"
-                (click)="toggleMobileMenu()"
-                aria-label="Toggle navigation menu">
-                ☰
-              </button>
-            </div>
-          </div>          <!-- Mobile Navigation -->
-          <nav
-            class="md:hidden mt-4 pb-2"
-            [class.hidden]="!isMobileMenuOpen()"
-            [attr.aria-hidden]="!isMobileMenuOpen()">
-            <div class="space-y-2">
+    <div [class.dark]="isDarkMode()">
+      <div class="min-h-dvh bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <!-- Header -->
+        <header class="bg-brand-500 text-white shadow-lg">
+          <div class="mx-auto max-w-7xl px-4 py-4">
+            <div class="flex items-center justify-between">
+              <!-- Logo -->
               <a
                 routerLink="/"
-                (click)="closeMobileMenu(); logNavigation('Home', '/')"
-                class="block py-2 hover:text-brand-100 transition-colors font-medium">
-                Home
+                class="text-xl font-bold hover:text-brand-100 transition-colors"
+                (click)="logNavigation('Home', '/')"
+              >
+                AI Form Filler
               </a>
-              <a
-                routerLink="/about"
-                (click)="closeMobileMenu(); logNavigation('About', '/about')"
-                class="block py-2 hover:text-brand-100 transition-colors font-medium">
-                About
-              </a>
+
+              <!-- Desktop Navigation -->
+              <nav class="hidden md:flex items-center gap-6">
+                <a
+                  routerLink="/"
+                  class="hover:text-brand-100 transition-colors font-medium"
+                  (click)="logNavigation('Home', '/')"
+                  >Home</a
+                >
+                <a
+                  routerLink="/about"
+                  class="hover:text-brand-100 transition-colors font-medium"
+                  (click)="logNavigation('About', '/about')"
+                  >About</a
+                >
+                <button
+                  class="btn-secondary !py-2 !px-3 !text-xs"
+                  (click)="toggleDarkMode()"
+                  [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+                >
+                  @if (isDarkMode()) {
+                    <span>🌙</span>
+                  } @else {
+                    <span>☀️</span>
+                  }
+                </button>
+              </nav>
+
+              <!-- Mobile menu button -->
+              <div class="md:hidden flex items-center gap-2">
+                <button
+                  class="btn-secondary !py-2 !px-3 !text-xs"
+                  (click)="toggleDarkMode()"
+                  [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+                >
+                  @if (isDarkMode()) {
+                    <span>🌙</span>
+                  } @else {
+                    <span>☀️</span>
+                  }
+                </button>
+                <button
+                  class="btn-secondary !py-2 !px-3"
+                  (click)="toggleMobileMenu()"
+                  aria-label="Toggle navigation menu"
+                >
+                  ☰
+                </button>
+              </div>
             </div>
-          </nav>
-        </div>
-      </header>
+            <!-- Mobile Navigation -->
+            <nav
+              class="md:hidden mt-4 pb-2"
+              [class.hidden]="!isMobileMenuOpen()"
+              [attr.aria-hidden]="!isMobileMenuOpen()"
+            >
+              <div class="space-y-2">
+                <a
+                  routerLink="/"
+                  (click)="closeMobileMenu(); logNavigation('Home', '/')"
+                  class="block py-2 hover:text-brand-100 transition-colors font-medium"
+                >
+                  Home
+                </a>
+                <a
+                  routerLink="/about"
+                  (click)="closeMobileMenu(); logNavigation('About', '/about')"
+                  class="block py-2 hover:text-brand-100 transition-colors font-medium"
+                >
+                  About
+                </a>
+              </div>
+            </nav>
+          </div>
+        </header>
 
         <!-- Main Content -->
         <main class="mx-auto max-w-7xl px-4 py-8 min-h-[calc(100dvh-200px)]">
@@ -90,12 +116,12 @@ import { filter } from 'rxjs/operators';
   `,
 })
 export class AppShellComponent implements OnInit, OnDestroy {
+  private router = inject(Router);
+
   isDarkMode = signal<boolean>(false);
   isMobileMenuOpen = signal<boolean>(false);
   private componentId = 'AppShellComponent';
   private startTime = 0;
-
-  constructor(private router: Router) {}
 
   ngOnInit() {
     this.startTime = performance.now();
@@ -105,14 +131,13 @@ export class AppShellComponent implements OnInit, OnDestroy {
       url: window.location.href,
       viewport: {
         width: window.innerWidth,
-        height: window.innerHeight
-      }
+        height: window.innerHeight,
+      },
     });
 
     // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
 
     this.isDarkMode.set(savedTheme === 'dark' || (!savedTheme && prefersDark));
     this.updateDocumentTheme();
@@ -121,18 +146,18 @@ export class AppShellComponent implements OnInit, OnDestroy {
     console.log(`🎨 [${this.componentId}] Theme initialized`, {
       initialTheme: this.isDarkMode() ? 'dark' : 'light',
       source: savedTheme ? 'localStorage' : 'system preference',
-      systemPrefersDark: prefersDark
+      systemPrefersDark: prefersDark,
     });
 
     // Subscribe to router events for navigation logging
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         console.log(`🧭 [${this.componentId}] Navigation completed`, {
           from: event.url,
           to: event.urlAfterRedirects,
           timestamp: new Date().toISOString(),
-          sessionId: this.getSessionId()
+          sessionId: this.getSessionId(),
         });
       });
   }
@@ -144,13 +169,13 @@ export class AppShellComponent implements OnInit, OnDestroy {
     console.log(`🗑️ [${this.componentId}] Layout component destroyed`, {
       component: this.componentId,
       totalLifetime: `${totalLifetime.toFixed(2)}ms`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
   toggleDarkMode() {
     const previousTheme = this.isDarkMode();
-    this.isDarkMode.update(current => !current);
+    this.isDarkMode.update((current: boolean) => !current);
     this.updateDocumentTheme();
     localStorage.setItem('theme', this.isDarkMode() ? 'dark' : 'light');
 
@@ -158,13 +183,13 @@ export class AppShellComponent implements OnInit, OnDestroy {
       from: previousTheme ? 'dark' : 'light',
       to: this.isDarkMode() ? 'dark' : 'light',
       timestamp: new Date().toISOString(),
-      sessionId: this.getSessionId()
+      sessionId: this.getSessionId(),
     });
   }
 
   toggleMobileMenu() {
     const previousState = this.isMobileMenuOpen();
-    this.isMobileMenuOpen.update(current => !current);
+    this.isMobileMenuOpen.update((current: boolean) => !current);
 
     console.log(`📱 [${this.componentId}] Mobile menu toggled`, {
       from: previousState ? 'open' : 'closed',
@@ -172,8 +197,8 @@ export class AppShellComponent implements OnInit, OnDestroy {
       timestamp: new Date().toISOString(),
       viewport: {
         width: window.innerWidth,
-        height: window.innerHeight
-      }
+        height: window.innerHeight,
+      },
     });
   }
 
@@ -181,7 +206,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
     if (this.isMobileMenuOpen()) {
       this.isMobileMenuOpen.set(false);
       console.log(`📱 [${this.componentId}] Mobile menu closed`, {
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     }
   }
@@ -192,7 +217,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
       path,
       timestamp: new Date().toISOString(),
       sessionId: this.getSessionId(),
-      userAgent: navigator.userAgent
+      userAgent: navigator.userAgent,
     });
   }
 
