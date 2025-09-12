@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { UiCardComponent } from '../../shared/ui-card/ui-card.component';
-import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.service';
 
 @Component({
   selector: 'app-about',
@@ -11,25 +10,27 @@ import { NinjaConsoleService } from '../../shared/ninja-console/ninja-console.se
 })
 export class AboutComponent implements OnInit, OnDestroy, AfterViewInit {
   private componentId = 'AboutComponent';
-  private startTime: number = 0;
+  private startTime  = 0;
 
   ngOnInit() {
     this.startTime = performance.now();
     console.log(`🚀 [${this.componentId}] Component initialized`, {
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
-      url: window.location.href
+      url: window.location.href,
     });
 
     // Log component performance
     console.log(`⚡ [${this.componentId}] Initialization performance:`, {
       component: this.componentId,
       initTime: this.startTime,
-      memoryUsage: (performance as any).memory ? {
-        used: (performance as any).memory.usedJSHeapSize,
-        total: (performance as any).memory.totalJSHeapSize,
-        limit: (performance as any).memory.jsHeapSizeLimit
-      } : 'Memory API not available'
+      memoryUsage: (performance as any).memory
+        ? {
+            used: (performance as any).memory.usedJSHeapSize,
+            total: (performance as any).memory.totalJSHeapSize,
+            limit: (performance as any).memory.jsHeapSizeLimit,
+          }
+        : 'Memory API not available',
     });
   }
 
@@ -41,7 +42,7 @@ export class AboutComponent implements OnInit, OnDestroy, AfterViewInit {
       component: this.componentId,
       viewInitTime,
       initDuration: `${initDuration.toFixed(2)}ms`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     // Log if initialization took too long
@@ -49,7 +50,7 @@ export class AboutComponent implements OnInit, OnDestroy, AfterViewInit {
       console.warn(`⚠️ [${this.componentId}] Slow initialization detected`, {
         duration: initDuration,
         threshold: 100,
-        component: this.componentId
+        component: this.componentId,
       });
     }
   }
@@ -62,7 +63,7 @@ export class AboutComponent implements OnInit, OnDestroy, AfterViewInit {
       component: this.componentId,
       totalLifetime: `${totalLifetime.toFixed(2)}ms`,
       destroyTime,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -73,7 +74,7 @@ export class AboutComponent implements OnInit, OnDestroy, AfterViewInit {
       action,
       details,
       timestamp: new Date().toISOString(),
-      sessionId: this.getSessionId()
+      sessionId: this.getSessionId(),
     });
   }
 

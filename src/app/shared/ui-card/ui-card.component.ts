@@ -28,7 +28,7 @@ export class UiCardComponent implements OnInit, OnDestroy {
       title: this.title,
       subtitle: this.subtitle,
       classes: this.classes,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -39,7 +39,7 @@ export class UiCardComponent implements OnInit, OnDestroy {
     console.log(`🗑️ [${this.componentId}] Card component destroyed`, {
       cardId: this.cardId,
       totalLifetime: `${totalLifetime.toFixed(2)}ms`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -48,7 +48,7 @@ export class UiCardComponent implements OnInit, OnDestroy {
     console.log(`🖱️ [${this.componentId}] Card hover started`, {
       cardId: this.cardId,
       title: this.title,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -57,7 +57,7 @@ export class UiCardComponent implements OnInit, OnDestroy {
     console.log(`🖱️ [${this.componentId}] Card hover ended`, {
       cardId: this.cardId,
       title: this.title,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -67,7 +67,7 @@ export class UiCardComponent implements OnInit, OnDestroy {
       cardId: this.cardId,
       title: this.title,
       timestamp: new Date().toISOString(),
-      sessionId: this.getSessionId()
+      sessionId: this.getSessionId(),
     });
   }
 
